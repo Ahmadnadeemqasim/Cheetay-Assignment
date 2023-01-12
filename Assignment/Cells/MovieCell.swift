@@ -22,7 +22,7 @@ class MovieCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 2.0
         self.layer.cornerRadius = 20.0
         self.layer.masksToBounds = true

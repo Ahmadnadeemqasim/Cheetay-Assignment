@@ -8,9 +8,11 @@
 
 import UIKit
 import SDWebImage
+import Alamofire
 
 class MovieListVC: UIViewController {
 
+    let AF = Alamofire.SessionManager()
     let ms = MovieService()
     let screenSize: CGRect = UIScreen.main.bounds
     var movieList: MoviesApiResponse?
@@ -28,6 +30,13 @@ class MovieListVC: UIViewController {
         getPopularMovies()
     }
     fileprivate func getPopularMovies() {
+        
+//        let s = "https://api.themoviedb.org/3/movie/popular?api_key=e5ea3092880f4f3c25fbc537e9b37dc1"
+//
+//        AF.request(s).responseJSON { response in
+//            debugPrint(response)
+//        }
+        
         PaceProgressHUD.addProgressHUDToTop()
         ms.getPopularMoviesList(){
             [weak self] (response) in

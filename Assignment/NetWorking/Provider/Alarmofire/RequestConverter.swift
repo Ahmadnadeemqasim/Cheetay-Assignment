@@ -29,7 +29,7 @@ struct RequestConverter: RequestConvertible {
         
         self.method = method
         self.route = route
-        self.parameters = parameters
+        self.parameters = ["api_key": C.requestHeaders.API_KEY ]// parameters
         self.encoding = encoding
         self.headers = getDefaultHeaders(headers:headers, timeStamp: nil)
     }
@@ -40,13 +40,10 @@ extension RequestConverter {
     func getDefaultHeaders(headers:RequestHeaders?,timeStamp:Double?) -> RequestHeaders {
         
         var requestHeaders: RequestHeaders = [:]
-//        requestHeaders["Content-Type"] = "application/json"
-//        var token : String = "Bearer"
+        requestHeaders["Content-Type"] = "application/x-www-form-urlencoded"
         
-//        if let jwt = UserDefaultsService.shared.savedJWT() {
-//            token = "Bearer " + jwt
-//        }
-//        requestHeaders["Authorization"] = token
+        
+//        requestHeaders["Authorization"] = C.requestHeaders.API_KEY
         guard let headers = headers else { return requestHeaders }
         requestHeaders.merge(dict: headers)
         return requestHeaders
