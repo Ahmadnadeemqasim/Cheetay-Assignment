@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MovieCell" customModule="Assignment" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="118" height="122"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="118" height="122"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TC4-j6-diJ">
+                        <rect key="frame" x="0.0" y="0.0" width="118" height="122"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zqb-bD-XDT">
+                        <rect key="frame" x="10" y="74" width="58" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="dIZ-oB-oAA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVG-dV-aPS">
+                        <rect key="frame" x="73" y="77" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="cP9-s2-ILj"/>
+                            <constraint firstAttribute="height" constant="40" id="nme-uH-1dH"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                        <connections>
+                            <action selector="btnFavouritTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="O6R-ga-3yr"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20-11-2023" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbE-Yr-tnZ">
+                        <rect key="frame" x="10" y="98" width="58" height="14"/>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="fVG-dV-aPS" secondAttribute="bottom" constant="5" id="1gp-Kl-JnY"/>
+                <constraint firstItem="Zqb-bD-XDT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="A8A-RY-MIg"/>
+                <constraint firstItem="RbE-Yr-tnZ" firstAttribute="leading" secondItem="Zqb-bD-XDT" secondAttribute="leading" id="Jmd-Xz-fP5"/>
+                <constraint firstItem="RbE-Yr-tnZ" firstAttribute="top" secondItem="Zqb-bD-XDT" secondAttribute="bottom" constant="3" id="KXW-L8-HJi"/>
+                <constraint firstItem="TC4-j6-diJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PnO-Xd-3S8"/>
+                <constraint firstItem="RbE-Yr-tnZ" firstAttribute="trailing" secondItem="Zqb-bD-XDT" secondAttribute="trailing" id="Rcp-nJ-ns8"/>
+                <constraint firstAttribute="bottom" secondItem="TC4-j6-diJ" secondAttribute="bottom" id="Rgr-ni-Mtt"/>
+                <constraint firstAttribute="trailing" secondItem="TC4-j6-diJ" secondAttribute="trailing" id="TC5-WK-VKb"/>
+                <constraint firstAttribute="bottom" secondItem="RbE-Yr-tnZ" secondAttribute="bottom" constant="10" id="emW-uP-rLe"/>
+                <constraint firstItem="TC4-j6-diJ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gh4-nC-ehs"/>
+                <constraint firstAttribute="trailing" secondItem="fVG-dV-aPS" secondAttribute="trailing" constant="5" id="kwH-fO-V7i"/>
+                <constraint firstItem="fVG-dV-aPS" firstAttribute="leading" secondItem="Zqb-bD-XDT" secondAttribute="trailing" constant="5" id="mpC-JA-LFg"/>
+            </constraints>
+            <size key="customSize" width="118" height="122"/>
+            <connections>
+                <outlet property="btnFavourite" destination="fVG-dV-aPS" id="ycz-j0-zLm"/>
+                <outlet property="imgPoster" destination="TC4-j6-diJ" id="IYf-bz-5ET"/>
+                <outlet property="lblDate" destination="RbE-Yr-tnZ" id="ER3-QM-n1s"/>
+                <outlet property="lblName" destination="Zqb-bD-XDT" id="nib-G3-uFg"/>
+            </connections>
+            <point key="canvasLocation" x="184.05797101449278" y="103.79464285714285"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="heart" catalog="system" width="128" height="109"/>
+    </resources>
+</document>
