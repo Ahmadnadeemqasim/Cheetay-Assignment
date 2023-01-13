@@ -69,7 +69,7 @@ extension Readable where Self: Routable {
                                 route: routePath,
                                 parameters: parameters,
                                 headers: headers,
-                                encoding: JSONEncoding.default)
+                                encoding: CustomEncoding())
     }
     
     static func getQueryParams(editedPath:String? = nil,queryParams:Parameters? = nil,parameters: [String:String]? = nil,headers: RequestHeaders? = nil) -> RequestConverter {
@@ -97,7 +97,7 @@ extension Creatable where Self: Routable {
                                 route: router.route,
                                 parameters: parameters,
                                 headers: headers,
-                                encoding: JSONEncoding.default)
+                                encoding: CustomEncoding())
     }
 }
 
@@ -113,7 +113,7 @@ extension Updatable where Self: Routable {
                                 route: newPath,
                                 parameters: parameters,
                                 headers: headers,
-                                encoding: JSONEncoding.default)
+                                encoding: CustomEncoding())
     }
 }
 
@@ -130,7 +130,7 @@ extension Patchable where Self: Routable {
                                 route: newPath,
                                 parameters: parameters,
                                 headers: headers,
-                                encoding: JSONEncoding.default)
+                                encoding: CustomEncoding())
     }
 }
 
@@ -142,7 +142,7 @@ extension Deletable where Self: Routable {
                                 route: router.route,
                                 parameters: parameters,
                                 headers: headers,
-                                encoding: JSONEncoding.default)
+                                encoding:CustomEncoding())
     }
 }
 

@@ -22,15 +22,15 @@ struct RequestConverter: RequestConvertible {
     var route: String
     var parameters: Parameters?
     var headers: RequestHeaders?
-    let encoding:Alamofire.ParameterEncoding?
+    let encoding: CustomEncoding? //. Alamofire.ParameterEncoding?
     
     
-    init(param:String? = nil,method:HTTPMethod,route:String,parameters:Parameters? = nil,headers:RequestHeaders? = [:],encoding:Alamofire.ParameterEncoding? = JSONEncoding.default) {
+    init(param:String? = nil,method:HTTPMethod,route:String,parameters:Parameters? = nil,headers:RequestHeaders? = [:],encoding: CustomEncoding? ) {
         
         self.method = method
         self.route = route
-        self.parameters = ["api_key": C.requestHeaders.API_KEY ]// parameters
-        self.encoding = encoding
+        self.parameters = parameters // ["api_key": C.requestHeaders.API_KEY ]// parameters
+        self.encoding = encoding as! CustomEncoding
         self.headers = getDefaultHeaders(headers:headers, timeStamp: nil)
     }
 }
@@ -40,7 +40,7 @@ extension RequestConverter {
     func getDefaultHeaders(headers:RequestHeaders?,timeStamp:Double?) -> RequestHeaders {
         
         var requestHeaders: RequestHeaders = [:]
-        requestHeaders["Content-Type"] = "application/x-www-form-urlencoded"
+//        requestHeaders["Content-Type"] = "application/x-www-form-urlencoded"
         
         
 //        requestHeaders["Authorization"] = C.requestHeaders.API_KEY
