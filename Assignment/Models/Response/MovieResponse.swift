@@ -2,7 +2,7 @@
 //  MovieResponse.swift
 //  Assignment
 //
-//  Created by Devin Ellis  on 1/9/23.
+//  Created by Ahmad Qasim on 1/9/23.
 //
 
 import Foundation
@@ -23,18 +23,20 @@ struct MoviesApiResponse: Codable {
 
 // MARK: - MovieDetail
 struct MovieDetail: Codable {
-    let adult: Bool?
-    let backdropPath: String?
-    let genreIDS: [Int]?
-    let id: Int?
-    let originalLanguage: String?
-    let originalTitle: String?
-    let overview: String?
-    let popularity: Double?
-    let posterPath, releaseDate, title: String?
-    let video: Bool?
-    let voteAverage: Double?
-    let voteCount: Int?
+    
+    var adult: Bool?
+    var backdropPath: String?
+    var genreIDS: [Int]?
+    var id: Int?
+    var originalLanguage: String?
+    var originalTitle: String?
+    var overview: String?
+    var popularity: Double?
+    var posterPath, releaseDate, title: String?
+    var video: Bool?
+    var voteAverage: Double?
+    var voteCount: Int?
+    
 
     enum CodingKeys: String, CodingKey {
         case adult = "adult"

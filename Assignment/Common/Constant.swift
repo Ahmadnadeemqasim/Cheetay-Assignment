@@ -2,7 +2,7 @@
 //  Constant.swift
 //  Assignment
 //
-//  Created by Devin Ellis  on 1/9/23.
+//  Created by Ahmad Qasim  on 1/9/23.
 //
 
 import Foundation
@@ -32,10 +32,4 @@ extension Notification.Name {
     static let apiError = Notification.Name("apiError")
     static let serverNotfound = Notification.Name("serverNotfound")
     static let requestTimeOut = Notification.Name("requestTimeOut")
-    static let locationReceived = Notification.Name("locationReceived")
-    static let locationDenied = Notification.Name("locationDenied")
-    static let requestNotification = Notification.Name("requestNotification")
-    static let updateRequestNotificationCount = Notification.Name("updateRequestNotificationCount")
-    static let updateChatNotificationCount = Notification.Name("updateChatNotificationCount")
-    static let chatNotification = Notification.Name("chatNotification")
-}
+    }

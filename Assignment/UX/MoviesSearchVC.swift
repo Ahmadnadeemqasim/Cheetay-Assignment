@@ -1,8 +1,8 @@
 //
-//  MovieListVC.swift
+//  MoviesSearchVC.swift
 //  Assignment
 //
-//  Created by Ahmad Qasim  on 1/5/23.
+//  Created by Devin Ellis  on 1/13/23.
 //
 
 
@@ -11,17 +11,23 @@ import SDWebImage
 import Alamofire
 import CoreData
 
-class MovieListVC: UIViewController {
+class MoviesSearchVC: UIViewController {
   
 
     let AF = Alamofire.SessionManager()
     let ms = MovieService()
-    let request = MoviesApiRequest()
+    var request = SearchMovieByNameApiRequest()
     let screenSize: CGRect = UIScreen.main.bounds
     var movieList: MoviesApiResponse?
-    var mdUtility = MovieCoreDataUtility()
+    var mdUtility: MovieCoreDataUtility?
     
     
+
+    @IBOutlet weak var sbMovieList: UISearchBar!{
+        didSet{
+            sbMovieList.delegate = self
+        }
+    }
     @IBOutlet weak var cvMovieList: UICollectionView!{
         didSet{
             cvMovieList.delegate = self
@@ -32,12 +38,11 @@ class MovieListVC: UIViewController {
         super.viewDidLoad()
         
         cvMovieList.register(UINib.init(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MOVIECELL")
-        getPopularMovies()
     }
-    fileprivate func getPopularMovies() {
+    fileprivate func getmoviesList() {
         
         PaceProgressHUD.addProgressHUDToTop()
-        ms.getPopularMoviesList(request: request){
+        ms.getSearchedMoviesList(request: request){
             [weak self] (response) in
             PaceProgressHUD.hideProgressHUDFromTop()
             switch response {
@@ -60,23 +65,16 @@ class MovieListVC: UIViewController {
         }
       }
 }
-extension MovieListVC : MovieDelegate {
+extension MoviesSearchVC : MovieDelegate {
     func btnFavouritClicked(sender: UIButton) {
-      
-        let alertAction = UIAlertAction.init(title: "Ok", style: .default)
+        
         let favoriteMovie =  movieList?.results[sender.tag]
-//        if let md = mdUtility {
-        let result = mdUtility.saveFavoriteMovie(movieObj: favoriteMovie)
-        
-        let msg = result ? (favoriteMovie?.originalTitle!)! + " added to your favourite list of movies" : "\(String(describing: favoriteMovie?.originalTitle!)) not added to your favourite list of movies"
-        let alert = UIAlertController.init(title: "Favourite Movie", message: msg, preferredStyle: .alert)
-        alert.addAction(alertAction)
-        
-        self.present(alert, animated: true)
-//        }
+        if let md = mdUtility {
+            md.saveFavoriteMovie(movieObj: favoriteMovie)
+        }
     }
 }
-extension MovieListVC: UICollectionViewDelegateFlowLayout{
+extension MoviesSearchVC: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
        let size = ((collectionView.frame.width - 20) / 2)
@@ -90,7 +88,7 @@ extension MovieListVC: UICollectionViewDelegateFlowLayout{
     }
 }
 
-extension MovieListVC: UICollectionViewDataSource {
+extension MoviesSearchVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movieList?.results.count ?? 0
     }
@@ -123,5 +121,12 @@ extension MovieListVC: UICollectionViewDataSource {
         vc.mvDetail = movieDetail
         self.present(vc, animated: true)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension MoviesSearchVC : UISearchTextFieldDelegate, UISearchBarDelegate{
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        request.movieName =  searchBar.text
+        self.getmoviesList()
     }
 }

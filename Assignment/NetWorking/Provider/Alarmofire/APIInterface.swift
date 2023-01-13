@@ -43,98 +43,98 @@ class OLAPIInterface: NSObject {
         }
     }
     
-    func upload<T:Decodable>(_ request: RequestConvertible,imageData:[Data]? = [],imageParam:String? = nil,imageName:String? = nil,decodingType:T.Type?,completion:@escaping (Result<T>) -> Void) {
-        
-        guard let requestConvertible = request as? URLRequestConvertible else {
-            completion(Result.failure(.invalidRequestConvertable))
-            return
-        }
-        
-        OLAPIInterface.manager.upload(multipartFormData: { (multipartFormData) in
-            for (key, value) in request.parameters ?? [:] {
-                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-            }
-            
-            if let imageData = imageData {
-                for data in imageData {
-                    
-                    if imageData.count > 1 {
-                        if let imageParam = imageParam , let imageName = imageName {
-                            multipartFormData.append(data, withName: "\(imageParam)[]", fileName: imageName, mimeType: "image/jpeg")
-                        }
-                    } else {
-                        if let imageParam = imageParam , let imageName = imageName {
-                            multipartFormData.append(data, withName: imageParam, fileName: imageName, mimeType: "image/jpeg")
-                        }
-                    }
-                    
-                    
-                }
-            }
-        }, with: requestConvertible) { (encodingResult) in
-            switch encodingResult {
-                
-            case .success(let uploadRequest, _, _):
-                
-                uploadRequest.validate().responseJSON(completionHandler: {[unowned self] (successResponse) in
-                    self.translateObject(request, decodingType: decodingType, response: successResponse, completion: completion)
-                })
-                break
-            case .failure(let error):
-                completion(Result.failure(NetworkFailureReason.responseFailed(error: error)))
-                break
-            }
-        }
-    }
-    
-    func uploadMultiple<T:Decodable>(_ request: RequestConvertible,
-                                     imageData:[Data]? = [],
-                                     imageParams:[String]? = nil,
-                                     imageNames:[String]? = nil,
-                                     decodingType:T.Type?,
-                                     completion:@escaping (Result<T>) -> Void) {
-        
-        
-        guard let requestConvertible = request as? URLRequestConvertible else {
-            completion(Result.failure(.invalidRequestConvertable))
-            return
-        }
-        
-        
-        OLAPIInterface.manager.upload(multipartFormData: { (multipartFormData) in
-            for (key, value) in request.parameters ?? [:] {
-                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-            }
-            
-            if let imageData = imageData,
-                let imageParam = imageParams,
-                let imageNames = imageNames    {
-                if imageData.count > 0 {
-                    for i in 0...imageData.count - 1 {
-                        let data = imageData[i]
-                        let param = imageParam[i]
-                        let imageName = imageNames[i] // Crash
-                        
-                        multipartFormData.append(data, withName: param, fileName: imageName, mimeType: "image/jpg")
-                    }
-                }
-            }
-        }, with: requestConvertible) { (encodingResult) in
-            switch encodingResult {
-                
-            case .success(let uploadRequest, _, _):
-                
-                uploadRequest.validate().responseJSON(completionHandler: {[unowned self] (successResponse) in
-                    self.translateObject(request, decodingType: decodingType, response: successResponse, completion: completion)
-                })
-                break
-            case .failure(let error):
-                completion(Result.failure(NetworkFailureReason.responseFailed(error: error)))
-                break
-            }
-        }
-    }
-    
+//    func upload<T:Decodable>(_ request: RequestConvertible,imageData:[Data]? = [],imageParam:String? = nil,imageName:String? = nil,decodingType:T.Type?,completion:@escaping (Result<T>) -> Void) {
+//
+//        guard let requestConvertible = request as? URLRequestConvertible else {
+//            completion(Result.failure(.invalidRequestConvertable))
+//            return
+//        }
+//
+//        OLAPIInterface.manager.upload(multipartFormData: { (multipartFormData) in
+//            for (key, value) in request.parameters ?? [:] {
+//                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+//            }
+//
+//            if let imageData = imageData {
+//                for data in imageData {
+//
+//                    if imageData.count > 1 {
+//                        if let imageParam = imageParam , let imageName = imageName {
+//                            multipartFormData.append(data, withName: "\(imageParam)[]", fileName: imageName, mimeType: "image/jpeg")
+//                        }
+//                    } else {
+//                        if let imageParam = imageParam , let imageName = imageName {
+//                            multipartFormData.append(data, withName: imageParam, fileName: imageName, mimeType: "image/jpeg")
+//                        }
+//                    }
+//
+//
+//                }
+//            }
+//        }, with: requestConvertible) { (encodingResult) in
+//            switch encodingResult {
+//
+//            case .success(let uploadRequest, _, _):
+//
+//                uploadRequest.validate().responseJSON(completionHandler: {[unowned self] (successResponse) in
+//                    self.translateObject(request, decodingType: decodingType, response: successResponse, completion: completion)
+//                })
+//                break
+//            case .failure(let error):
+//                completion(Result.failure(NetworkFailureReason.responseFailed(error: error)))
+//                break
+//            }
+//        }
+//    }
+//
+//    func uploadMultiple<T:Decodable>(_ request: RequestConvertible,
+//                                     imageData:[Data]? = [],
+//                                     imageParams:[String]? = nil,
+//                                     imageNames:[String]? = nil,
+//                                     decodingType:T.Type?,
+//                                     completion:@escaping (Result<T>) -> Void) {
+//
+//
+//        guard let requestConvertible = request as? URLRequestConvertible else {
+//            completion(Result.failure(.invalidRequestConvertable))
+//            return
+//        }
+//
+//
+//        OLAPIInterface.manager.upload(multipartFormData: { (multipartFormData) in
+//            for (key, value) in request.parameters ?? [:] {
+//                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+//            }
+//
+//            if let imageData = imageData,
+//                let imageParam = imageParams,
+//                let imageNames = imageNames    {
+//                if imageData.count > 0 {
+//                    for i in 0...imageData.count - 1 {
+//                        let data = imageData[i]
+//                        let param = imageParam[i]
+//                        let imageName = imageNames[i] // Crash
+//
+//                        multipartFormData.append(data, withName: param, fileName: imageName, mimeType: "image/jpg")
+//                    }
+//                }
+//            }
+//        }, with: requestConvertible) { (encodingResult) in
+//            switch encodingResult {
+//
+//            case .success(let uploadRequest, _, _):
+//
+//                uploadRequest.validate().responseJSON(completionHandler: {[unowned self] (successResponse) in
+//                    self.translateObject(request, decodingType: decodingType, response: successResponse, completion: completion)
+//                })
+//                break
+//            case .failure(let error):
+//                completion(Result.failure(NetworkFailureReason.responseFailed(error: error)))
+//                break
+//            }
+//        }
+//    }
+//
     private func translateObject<T:Decodable>(_ request: RequestConvertible,decodingType:T.Type?,response: DataResponse<Any>,completion:@escaping (Result<T>) -> Void) {
         
         print(response)
@@ -216,32 +216,5 @@ class OLAPIInterface: NSObject {
             break
         }
     }
-//    
-//    private func getTimeChangedRequestHeaders(_ request: RequestConvertible,response:HTTPURLResponse) -> RequestHeaders? {
-//        //["Hawk ts=\"1550150379\"", " tsm=\"nIcPNVxB0CkAIrR9Nluj7WydQcz/O8H5MhMQ70CRrL8=\"", " error=\"Stale ts\""]
-//        let serverResponse = response.allHeaderFields["server-authorization"]
-//        guard let serverAuth = serverResponse as? String else {return nil}
-//        let components2 = serverAuth.split(separator: ",")
-//        //["Hawk ts=\"1550150539\"", " tsm=\"Be9lenknSINVjPg/uHauwt1DLSo6Pc2ZMmdB4u7UBNo=\"", " error=\"Stale ts\""]
-//        let arr2 = components2.filter { item in
-//            return item.lowercased().contains("ts")
-//        }
-//        if arr2.count > 0 {
-//            //- 0 : "Hawk" //- 1 : "ts=\"1550150539\""
-//            let arr3 = arr2.first?.components(separatedBy: " ")
-//            if let arr3 = arr3 {
-//                let serverTS = arr3.last
-//                let newTS = serverTS?.components(separatedBy: "=").last?.components(separatedBy: "\"")[1] as! String
-//                let requestConverter = (request as! RequestConverter)
-//                
-//                let newHeaders =  requestConverter.getDefaultHeaders(headers: requestConverter.headers, timeStamp: Double(newTS))
-//                return newHeaders
-//            }
-//            return nil
-//        }
-//        
-//        return nil
-//    }
-    
 }
 
